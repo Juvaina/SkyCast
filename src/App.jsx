@@ -75,9 +75,9 @@ const App = () => {
 
   return (
     <div className='grid min-h-screen bg-blue-100'>
-      <div className='grid grid-cols-5'>
+      <div className='grid grid-cols-1 md:grid-cols-5'>
         {/* Sidebar Navigation */}
-        <aside className='col-span-1 px-4 py-6 bg-white shadow-md'>
+        <aside className='col-span-1 px-4 py-6 bg-white shadow-md md:block hidden'>
           <h2 className='text-xl font-medium mb-4'>Weather Forecast</h2>
           <ul className='sticky top-0 space-y-2'>
             {['Current', 'Details', 'Hourly', '5-Days'].map((item) => (
@@ -98,7 +98,7 @@ const App = () => {
         </aside>
 
         {/* Main Content */}
-        <main className='col-span-4 px-6 py-8 space-y-6'>
+        <main className='col-span-1 md:col-span-4 px-6 py-8 space-y-6'>
           {/* Input Section */}
           <section id='Current'>
             <Inputs setQuery={setQuery} setUnits={setUnits} />
@@ -107,7 +107,7 @@ const App = () => {
           {/* Weather Details */}
           {weather && (
             <>
-              <section className='flex gap-7'>
+              <section className='flex flex-col md:flex-row gap-7'>
                 <TimeAndLocation weather={weather} />
                 <WeatherMap weather={weather} />
               </section>

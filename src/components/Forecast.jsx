@@ -15,31 +15,36 @@ const Forecast = ({ title, data }) => {
     name: d.title, // Label for X-axis
     temp: d.temp // Temperature value
   }));
+
   return (
-    <div className='flex flex-col gap-4'>
+    <div className='flex flex-col gap-6'>
       {/* Title Section */}
-      <div className='flex items-center text-3xl font-semibold'>
+      <div className='text-2xl md:text-3xl font-semibold text-center'>
         <p>{title}</p>
       </div>
 
       {/* Weather Cards */}
-      <div className='flex flex-row items-center justify-between gap-4'>
+      <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4'>
         {data.map((d, index) => (
           <div
             key={index}
-            className='flex items-center justify-center bg-white shadow-md rounded-xl p-5'
+            className='flex flex-col items-center bg-white shadow-md rounded-xl p-4'
           >
-            <img src={d.icon} alt='weather icon' className='w-16 h-16' />
-            <div className='flex flex-col items-center gap-2'>
-              <p className='font-medium text-lg'>{d.title}</p>
-              <p className='text-xl font-bold'>{`${d.temp.toFixed()}°`} </p>
+            <img
+              src={d.icon}
+              alt='weather icon'
+              className='w-12 h-12 sm:w-16 sm:h-16'
+            />
+            <div className='text-center mt-2'>
+              <p className='font-medium text-sm sm:text-lg'>{d.title}</p>
+              <p className='text-lg sm:text-xl font-bold'>{`${d.temp.toFixed()}°`}</p>
             </div>
           </div>
         ))}
       </div>
 
       {/* Line Chart */}
-      <div className='mt-8'>
+      <div className='mt-6'>
         <ResponsiveContainer width='100%' height={300}>
           <LineChart data={graphData}>
             <CartesianGrid stroke='#e0e0e0' strokeDasharray='5 5' />

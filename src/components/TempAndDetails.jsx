@@ -60,16 +60,17 @@ const TempAndDetails = ({
         <p>Weather Details</p>
       </div>
 
-      <div className='flex flex-row gap-10'>
+      {/* Responsive grid layout */}
+      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'>
         {weatherdetails.map(({ id, Icon, title, value }) => (
           <div
             key={id}
-            className='flex flex-col items-center justify-center bg-white rounded-xl p-5 gap-4 col-span-4 shadow-md'
+            className='flex flex-col items-center justify-center bg-white rounded-xl p-5 shadow-md'
           >
-            {`${title}: `}
-            <p className='font-light flex gap-3'>
+            <p className='font-light'>{title}:</p>
+            <p className='font-medium flex items-center gap-3'>
               <Icon />
-              <span className='font-medium'>{value}</span>
+              {value}
             </p>
           </div>
         ))}

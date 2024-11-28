@@ -1,21 +1,25 @@
 import { LineChart } from '@mui/x-charts';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
+// eslint-disable-next-line react/prop-types
 const TemperatureCard = ({ weather }) => {
   const [data, setData] = useState([]);
   const [currentTemp, setCurrentTemp] = useState(null);
   const [peakTemp, setPeakTemp] = useState({ temp: null, time: null });
 
   useEffect(() => {
+    // eslint-disable-next-line react/prop-types
     if (!weather || !weather.daily) return;
 
     // Extract temperature and time data
+    // eslint-disable-next-line react/prop-types
     const forecastData = weather.daily.map((day) => ({
       temp: parseFloat(day.temp.toFixed(0)), // Round the temperature
       time: day.title // Display the day (e.g., Mon, Tue)
     }));
 
     setData(forecastData);
+    // eslint-disable-next-line react/prop-types
     setCurrentTemp(weather.temp?.toFixed(0)); // Current temperature
 
     const peak = forecastData.reduce(
@@ -27,8 +31,14 @@ const TemperatureCard = ({ weather }) => {
   }, [weather]);
 
   return (
-    <div className='max-w-md mx-auto bg-white shadow-lg rounded-3xl p-5'>
-      <h2 className='text-xl font-semibold mb-4'>Temperature</h2>
+    <div
+      className='max-w-md mx-auto bg-white shadow-lg rounded-3xl p-5'
+      role='region'
+      aria-label='Temperature Card'
+    >
+      <h2 className='text-xl sm:text-2xl font-semibold mb-4 text-center'>
+        Temperature
+      </h2>
       <div className='h-52'>
         <LineChart
           xAxis={[
@@ -45,13 +55,20 @@ const TemperatureCard = ({ weather }) => {
             }
           ]}
           height={200}
+          aria-label='Temperature Line Chart'
         />
       </div>
       <div className='text-center mt-4'>
-        <p className='text-5xl font-bold'>{`${currentTemp}°`}</p>
-        <p className='text-sm text-gray-500 mt-2'>
-          Rising with a peak of {`${peakTemp.temp}°`} at {peakTemp.time}.
-        </p>
+        {currentTemp !== null ? (
+          <>
+            <p className='text-4xl sm:text-5xl font-bold'>{`${currentTemp}°`}</p>
+            <p className='text-sm sm:text-base text-gray-500 mt-2'>
+              Rising with a peak of {`${peakTemp.temp}°`} on {peakTemp.time}.
+            </p>
+          </>
+        ) : (
+          <p className='text-gray-500'>No temperature data available.</p>
+        )}
       </div>
     </div>
   );
